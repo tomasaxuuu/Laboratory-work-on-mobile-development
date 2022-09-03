@@ -10,7 +10,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/firstNum" />
+        android:text="@string/firstNum"
+        android:gravity="center"/>
     <EditText
         android:id="@+id/op1"
         android:layout_width="match_parent"
@@ -20,55 +21,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/secondNum" />
+        android:text="@string/secondNum"
+        android:gravity="center"/>
     <EditText
         android:id="@+id/op2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal" />
+
     <LinearLayout
+        android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Space
-            android:layout_width="2dp"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
         <Button
             android:id="@+id/sumBtn"
+            android:width="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sum" />
-        <Space
-            android:layout_width="190dp"
-            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/minusBtn"
+            android:width="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/minus" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-        <Space
-            android:layout_width="2dp"
-            android:layout_height="wrap_content" />
         <Button
             android:id="@+id/appBtn"
+            android:width="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app" />
-        <Space
-            android:layout_width="160dp"
-            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/delBtn"
+            android:width="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/del" />
     </LinearLayout>
-
 
 </LinearLayout>
