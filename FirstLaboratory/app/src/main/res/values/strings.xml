@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FirstLaboratory</string>
+    <string name="firstNum">Первое число</string>
+    <string name="secondNum">Второе число</string>
+    <string name="sum">Сложить</string>
+    <string name="minus">Вычесть</string>
+    <string name="app">Умножить</string>
+    <string name="del">Разделить</string>
+    <string name="close">Закрыть</string>
+    <string name="result">Результат: %d</string>
+    <string name="error">Ошибка ввода!</string>
+</resources>
