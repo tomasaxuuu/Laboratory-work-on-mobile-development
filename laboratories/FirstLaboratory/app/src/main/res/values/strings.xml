@@ -7,6 +7,6 @@
     <string name="app">Умножить</string>
     <string name="del">Разделить</string>
     <string name="close">Закрыть</string>
-    <string name="result">Результат: %d</string>
+    <string name="result">Результат: %.2f</string>
     <string name="error">Ошибка ввода!</string>
 </resources>
