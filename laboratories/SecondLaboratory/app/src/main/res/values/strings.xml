@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SecondLaboratory</string>
+    <string name="reset">Сброс</string>
+    <string name="choice">Выбор</string>
+    <string name="output">Вывод</string>
+    <string name="nameAdd">Имя элемента</string>
+    <string name="plus">+</string>
+</resources>
