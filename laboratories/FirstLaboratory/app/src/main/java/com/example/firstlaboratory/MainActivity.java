@@ -77,17 +77,21 @@ public class MainActivity extends AppCompatActivity {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                float first = Float.parseFloat(op1.getText().toString());
+                float second = Float.parseFloat(op2.getText().toString());;
                 try {
-                    float first = Float.parseFloat(op1.getText().toString());
-                    float second = Float.parseFloat(op2.getText().toString());
                     Intent finalResult = new Intent(MainActivity.this, ResultActivity.class);
                     finalResult.putExtra("Result", first / second);
+                    if(second == 0) {
+                        throw new Exception();
+                    }
                     startActivity(finalResult);
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.error),
-                            Toast.LENGTH_LONG).show();
-                    return;
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.error),
+                                Toast.LENGTH_LONG).show();
+                        return;
                 }
+
             }
         });
     }

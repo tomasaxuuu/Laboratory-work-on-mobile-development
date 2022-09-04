@@ -16,10 +16,10 @@ public class ResultActivity extends AppCompatActivity {
 
         float res = getIntent().getFloatExtra("Result", 0);
         TextView resultText = findViewById(R.id.result);
-        if (res == Math.round(res)) {
-            resultText.setText(getResources().getString(R.string.resultInteger, res));
-        } else {
+        if (res != Math.round(res)) {
             resultText.setText(getResources().getString(R.string.resultFloat, res));
+        } else {
+            resultText.setText(getResources().getString(R.string.resultInteger, res));
         }
         Button back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {

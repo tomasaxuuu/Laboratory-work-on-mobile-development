@@ -8,6 +8,6 @@
     <string name="del">Разделить</string>
     <string name="close">Вернуться</string>
     <string name="resultInteger">Результат: %.0f</string>
-    <string name="resultFloat">Результат: %f</string>
+    <string name="resultFloat">Результат: %.2f</string>
     <string name="error">Ошибка ввода!</string>
 </resources>
