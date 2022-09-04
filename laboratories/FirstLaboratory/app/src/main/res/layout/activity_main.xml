@@ -17,7 +17,7 @@
         android:id="@+id/op1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal|numberSigned" />
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:id="@+id/op2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal|numberSigned" />
 
     <LinearLayout
         android:id="@+id/LinearLayout1"

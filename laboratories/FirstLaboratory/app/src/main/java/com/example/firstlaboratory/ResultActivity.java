@@ -16,8 +16,11 @@ public class ResultActivity extends AppCompatActivity {
 
         float res = getIntent().getFloatExtra("Result", 0);
         TextView resultText = findViewById(R.id.result);
-        resultText.setText(getResources().getString(R.string.result, res));
-
+        if (res == Math.round(res)) {
+            resultText.setText(getResources().getString(R.string.resultInteger, res));
+        } else {
+            resultText.setText(getResources().getString(R.string.resultFloat, res));
+        }
         Button back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
