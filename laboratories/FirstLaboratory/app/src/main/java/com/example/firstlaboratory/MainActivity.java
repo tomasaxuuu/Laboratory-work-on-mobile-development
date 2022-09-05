@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float first = Float.parseFloat(op1.getText().toString());
-                float second = Float.parseFloat(op2.getText().toString());;
                 try {
+                    float first = Float.parseFloat(op1.getText().toString());
+                    float second = Float.parseFloat(op2.getText().toString());;
                     Intent finalResult = new Intent(MainActivity.this, ResultActivity.class);
                     finalResult.putExtra("Result", first / second);
                     if(second == 0) {
