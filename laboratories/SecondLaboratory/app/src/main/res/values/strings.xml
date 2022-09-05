@@ -5,4 +5,5 @@
     <string name="output">Вывод</string>
     <string name="nameAdd">Имя элемента</string>
     <string name="plus">+</string>
+    <string name="add">Добавить</string>
 </resources>
