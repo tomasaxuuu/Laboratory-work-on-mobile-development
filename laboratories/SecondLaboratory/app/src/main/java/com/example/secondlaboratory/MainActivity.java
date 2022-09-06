@@ -8,8 +8,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,19 +21,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText editItem = findViewById(R.id.editItem);
+        TextView editItem = findViewById(R.id.editItem);
         Button addItem = findViewById(R.id.addItem);
         ListView list = findViewById(R.id.list);
         ArrayList<String> arrayList = new ArrayList<String>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, arrayList);
+                android.R.layout.simple_list_item_multiple_choice, arrayList);
 
         list.setAdapter(adapter);
-
+        adapter.add("first");
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.add(editItem.getText().toString());
+                if(editItem.length() != 0) {
+                    adapter.add(editItem.getText().toString());
+                } else {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyItem),
+                            Toast.LENGTH_LONG).show();
+                }
 
                 // скрытие клавиатуры
                 if (view != null) {
@@ -38,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // очистка editText
-                editItem.getText().clear();
+                editItem.setText("");
             }
         });
+
     }
 }

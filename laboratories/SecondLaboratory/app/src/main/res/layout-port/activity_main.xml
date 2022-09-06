@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,16 +57,20 @@
         <ListView
             android:id="@+id/list"
             android:layout_width="347dp"
-            android:layout_height="391dp"/>
+            android:layout_height="391dp"
+            android:choiceMode="multipleChoice"
+            android:divider="@color/red" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_weight="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:layout_marginStart="10dp"
         android:paddingBottom="5dp">
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nameAdd"
@@ -89,13 +92,16 @@
             android:textSize="15sp"
             android:height="49dp"
             android:width="290dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            android:importantForAutofill="no"
+            android:inputType="text"/>
         <Button
             android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="100dp"
-            android:text="@string/plus" />
+            android:text="@string/plus"
+            android:layout_weight="0"/>
     </LinearLayout>
 
 </LinearLayout>

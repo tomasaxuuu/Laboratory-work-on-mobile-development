@@ -6,4 +6,5 @@
     <string name="nameAdd">Имя элемента</string>
     <string name="plus">+</string>
     <string name="add">Добавить</string>
+    <string name="emptyItem">Ошибка ввода! Вы ничего не ввели!</string>
 </resources>
