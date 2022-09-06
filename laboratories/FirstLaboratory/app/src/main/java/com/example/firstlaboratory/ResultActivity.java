@@ -13,15 +13,14 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
-        float res = getIntent().getFloatExtra("Result", 0);
         TextView resultText = findViewById(R.id.result);
-        if (res != Math.round(res)) {
+        Button back = findViewById(R.id.backBtn);
+        float res = getIntent().getFloatExtra("Result", 0);
+        if (res != (int)(res)) {
             resultText.setText(getResources().getString(R.string.resultFloat, res));
         } else {
             resultText.setText(getResources().getString(R.string.resultInteger, res));
         }
-        Button back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
