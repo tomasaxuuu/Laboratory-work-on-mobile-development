@@ -7,7 +7,9 @@
     <string name="app">Умножить</string>
     <string name="del">Разделить</string>
     <string name="close">Вернуться</string>
+    <string name="enterFirstNum">Введите первое число</string>
+    <string name="enterSecondNum">Введите второе число</string>
     <string name="resultInteger">Результат: %.0f</string>
-    <string name="resultFloat">Результат: %.2f</string>
+    <string name="resultFloat">Результат: %f</string>
     <string name="error">Ошибка ввода!</string>
 </resources>

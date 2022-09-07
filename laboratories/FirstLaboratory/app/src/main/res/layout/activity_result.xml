@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/result"
         android:gravity="center"
-        android:textSize="50px"
-        android:textColor="@color/black"/>
+        android:textSize="30sp"
+        android:textColor="@color/blue"/>
 
     <Button
         android:id="@+id/backBtn"
+        android:backgroundTint="@color/blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="200dp"
