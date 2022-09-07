@@ -1,17 +1,13 @@
 package com.example.secondlaboratory;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +15,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public Integer getItem(int pos) {
-        return pos;
-    }
-    @Override
 
+    public static  ArrayList<String> arrayList = new ArrayList<String>();
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -33,11 +28,9 @@ public class MainActivity extends AppCompatActivity {
         Button resetBtn = findViewById(R.id.reset);
         Button outBtn = findViewById(R.id.output);
         ListView list = findViewById(R.id.list);
-        ArrayList<String> arrayList = new ArrayList<String>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_multiple_choice, arrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.list_item, MainActivity.arrayList);
         list.setAdapter(adapter);
-        adapter.add("first");
 
         // добавление в список
         addItemBtn.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyItem),
                             Toast.LENGTH_LONG).show();
                 }
-
+                list.getDivider();
                 // скрытие клавиатуры
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -89,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
                         checkTrue += i + 1 + ": " +  list.getItemAtPosition(i).toString() + "\n";
                     }
                 }
-                Toast.makeText(getBaseContext(), checkTrue,
-                        Toast.LENGTH_SHORT).show();
+                if(checkTrue.length() != 0) {
+                    Toast.makeText(getBaseContext(), checkTrue,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.errorOut),
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

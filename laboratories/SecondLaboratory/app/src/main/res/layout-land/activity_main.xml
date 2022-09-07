@@ -21,20 +21,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/choice" />
+            android:text="@string/choice"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"/>
         <Button
             android:id="@+id/reset"
             android:width="150dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/reset" />
+            android:text="@string/reset"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"/>
         <Button
             android:id="@+id/output"
             android:width="250dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/output" />
+            android:text="@string/output"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"/>
     </LinearLayout>
 
 
@@ -49,10 +55,11 @@
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="wrap_content"
+            android:divider="@color/red"
+            android:dividerHeight="@dimen/heigthDiv"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:choiceMode="multipleChoice"
-            android:divider="@color/red"/>
+            android:choiceMode="multipleChoice" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="@string/nameAdd"
             android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/red"/>
     </LinearLayout>
 
     <LinearLayout
@@ -86,13 +93,16 @@
             android:width="490dp"
             android:layout_marginEnd="10dp"
             android:importantForAutofill="no"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:hint="@string/enterItem"/>
         <Button
             android:id="@+id/addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="200dp"
-            android:text="@string/add" />
+            android:text="@string/add"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#F80000</color>
     <color name="blue">#0771A3</color>
+    <dimen name="heigthDiv">2dp</dimen>
 </resources>

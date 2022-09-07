@@ -8,4 +8,5 @@
     <string name="add">Добавить</string>
     <string name="emptyItem">Ошибка ввода! Вы ничего не ввели!</string>
     <string name="enterItem">Введите название элемента в список</string>
+    <string name="errorOut">Вы ничего не выбрали!</string>
 </resources>
