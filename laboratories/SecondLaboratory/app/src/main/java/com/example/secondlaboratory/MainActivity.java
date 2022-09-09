@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.list_item, MainActivity.arrayList);
         list.setAdapter(adapter);
 
-        // проверка на ориентациюю устройства
+        // проверка на ориентацию устройства
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // смена названий кнопок и полей при смене ориентации
