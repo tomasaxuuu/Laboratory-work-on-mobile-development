@@ -2,6 +2,7 @@ package com.example.secondlaboratory;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    // создание списочного массива используя класс ArrayList
     public static  ArrayList<String> arrayList = new ArrayList<String>();
 
     @Override
@@ -28,9 +30,25 @@ public class MainActivity extends AppCompatActivity {
         Button resetBtn = findViewById(R.id.reset);
         Button outBtn = findViewById(R.id.output);
         ListView list = findViewById(R.id.list);
+        TextView name = findViewById(R.id.text);
+
+        // создание адаптера для работы с элементами списка (передается имя файла(Активити),
+        //идентификатор каждого элемента списка из list_item.xml(TextView для элементов),
+        // и ссылка на массив
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.list_item, MainActivity.arrayList);
         list.setAdapter(adapter);
+
+        // проверка на ориентациюю устройства
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // смена названий кнопок и полей при смене ориентации
+            outBtn.setText(R.string.outputEn);
+            choiceBtn.setText(R.string.choiceEn);
+            resetBtn.setText(R.string.resetEn);
+            editItem.setHint(R.string.enterItemEn);
+            name.setText(R.string.nameAddEn);
+        }
 
         // добавление в список
         addItemBtn.setOnClickListener(new View.OnClickListener() {
@@ -39,10 +57,18 @@ public class MainActivity extends AppCompatActivity {
                 if(editItem.length() != 0) {
                     adapter.add(editItem.getText().toString());
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyItem),
-                            Toast.LENGTH_LONG).show();
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyItemEn),
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.emptyItem),
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
+
+                // присвоение элементам списка красной гор.линии
                 list.getDivider();
+
                 // скрытие клавиатуры
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -54,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // присвоение каждому элементу списка значения - выбор(мультивыбор)
         choiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // сброс значения - выбор с каждого элемента списка
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,10 +114,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), checkTrue,
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.errorOut),
-                            Toast.LENGTH_LONG).show();
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errorOutEn),
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errorOut),
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
+
     }
 }

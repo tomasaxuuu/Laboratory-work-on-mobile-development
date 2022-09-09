@@ -1,12 +1,25 @@
 <resources>
-    <string name="app_name">SecondLaboratory</string>
+    <string name="app_name">Вторая лабораторная</string>
+    <string name="app_nameEn">SecondLaboratory</string>
+
     <string name="reset">Сброс</string>
     <string name="choice">Выбор</string>
     <string name="output">Вывод</string>
-    <string name="nameAdd">Имя элемента</string>
+    <string name="resetEn">Reset</string>
+    <string name="choiceEn">Choice</string>
+    <string name="outputEn">Output</string>
     <string name="plus">+</string>
-    <string name="add">Добавить</string>
-    <string name="emptyItem">Ошибка ввода! Вы ничего не ввели!</string>
+    <string name="add">Add</string>
+
+    <string name="nameAdd">Имя элемента</string>
+    <string name="nameAddEn">Element name</string>
+
+    <string name="enterItemEn">Enter the name of the item in the list</string>
     <string name="enterItem">Введите название элемента в список</string>
+
+    <string name="emptyItem">Ошибка ввода! Вы ничего не ввели!</string>
     <string name="errorOut">Вы ничего не выбрали!</string>
+    <string name="emptyItemEn">Input error! You have not entered anything!</string>
+    <string name="errorOutEn">You did not choose anything!</string>
+
 </resources>

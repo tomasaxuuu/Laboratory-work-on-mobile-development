@@ -78,12 +78,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    // парсинг переменных
                     float first = Float.parseFloat(op1.getText().toString());
-                    float second = Float.parseFloat(op2.getText().toString());;
+                    float second = Float.parseFloat(op2.getText().toString());
+                    // намерение для связи и выводом результата в другую Activity
                     Intent finalResult = new Intent(MainActivity.this, ResultActivity.class);
                     finalResult.putExtra("Result", first / second);
+
                     if(second == 0) {
-                        throw new Exception();
+                        throw new Exception(); // обработка исключения
                     }
                     startActivity(finalResult);
                 } catch (Exception e) {

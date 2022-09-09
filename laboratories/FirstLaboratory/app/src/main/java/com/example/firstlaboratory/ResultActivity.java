@@ -15,6 +15,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         TextView resultText = findViewById(R.id.result);
         Button back = findViewById(R.id.backBtn);
+        // получение данных намерения из другой Activity
         float res = getIntent().getFloatExtra("Result", 0);
         if (res != (int)(res)) {
             resultText.setText(getResources().getString(R.string.resultFloat, res));
