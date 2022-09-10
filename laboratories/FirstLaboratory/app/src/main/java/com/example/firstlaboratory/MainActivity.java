@@ -85,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     Intent finalResult = new Intent(MainActivity.this, ResultActivity.class);
                     finalResult.putExtra("Result", first / second);
 
-                    if(second == 0) {
-                        throw new Exception(); // обработка исключения
-                    }
                     startActivity(finalResult);
                 } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.error),
