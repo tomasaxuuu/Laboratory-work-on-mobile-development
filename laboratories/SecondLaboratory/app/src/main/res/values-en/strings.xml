@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Вторая лабораторная</string>
+    <string name="app_nameEn">SecondLaboratory</string>
+
+    <string name="reset">Reset</string>
+    <string name="choice">Choice</string>
+    <string name="output">Output</string>
+    <string name="plus">+</string>
+    <string name="add">Add</string>
+
+    <string name="nameAdd">Element name</string>
+
+    <string name="enterItem">Enter the name of the item in the list</string>
+
+    <string name="emptyItem">Input error! You have not entered anything!</string>
+    <string name="errorOut">You did not choose anything!</string>
+
+</resources>

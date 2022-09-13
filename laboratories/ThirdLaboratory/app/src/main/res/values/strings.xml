@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ThirdLaboratory</string>
+    <string name="func">Функция:\ny = 2x + 1</string>
+    <string name="funcY">Первое значение для x</string>
+    <string name="funcX">Второе значение для x</string>
+    <string name="btnText">Отправить</string>
+    <string name="diap">Введите диапазон значений X</string>
+</resources>
