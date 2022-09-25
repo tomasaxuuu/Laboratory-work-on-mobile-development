@@ -10,6 +10,12 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class GraphView extends View {
+    private float x1 = 1;
+    private float x2 = 5;
+    float y1 = 2 * this.x1 + 1;
+    float y2 = 2 * this.x2 + 1;
+    Paint black = new Paint();
+    Paint red = new Paint();
 
     public GraphView (Context context) {
         super(context);
@@ -22,10 +28,42 @@ public class GraphView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.rgb(0, 255, 0));
-        Paint p = new Paint();
-        p.setColor(Color.rgb(0, 0, 255));
-        canvas.drawLine(0, 0, this.getWidth(), this.getHeight(), p);
-    }
 
+        canvas.drawColor(Color.rgb(255,255,255));
+        black.setStrokeWidth(3);
+        black.setColor(Color.rgb(0, 0, 0));
+        red.setStrokeWidth(3);
+        red.setColor(Color.rgb(255, 0, 0));
+
+        float getWidth = getWidth();
+        float getHeight = getHeight();
+
+        // начало координат
+        float startX = getWidth / 2;
+        float startY = getHeight / 2;
+
+        // белый фон
+        canvas.drawColor(Color.rgb(255, 255, 255));
+
+        // ось координат
+        canvas.drawLine(startX, 20, startX, getHeight - 20, black);
+        canvas.drawLine(20, startY, getWidth - 20, startY, black);
+
+        // стрелки на конце
+        canvas.drawLine(startX - 20, 40, startX, 20, black);
+        canvas.drawLine(startX + 20, 40, startX, 20, black);
+
+        canvas.drawLine(getWidth - 40, getHeight - startY - 20, getWidth - 20, startY, black);
+        canvas.drawLine(getWidth - 40, getHeight - startY + 20, getWidth - 20, startY, black);
+
+        // график, не доделанный
+        canvas.drawLine(startX + x1 * 10, startY - y1 * 10, startX + x2 * 10, startY - y2 * 10, red);
+//        canvas.drawLine(startX + x1 * 30, startY - y1 * 30, getWidth - startY + x1 * 30, 20, red);
+//        canvas.drawLine(startX + x1 * 30, startY - y1 * 30, 20 , getHeight + startX + x1 * 30, red);
+    }
+    public void getXs(float firstX, float secondX) {
+        x1 = firstX;
+        x2 = secondX;
+        invalidate();
+    }
 }

@@ -13,9 +13,11 @@
         android:layout_height="wrap_content"/>
 
     <com.example.thirdlaboratory.GraphView
+
         android:id="@+id/graph"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -35,24 +37,22 @@
         android:gravity="center_horizontal">
 
         <EditText
-            android:id="@+id/funcY"
+            android:id="@+id/funcXone"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/funcY"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned" />
 
         <EditText
-            android:id="@+id/funcX"
+            android:id="@+id/funcXtwo"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/funcX"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberSigned"/>
 
     </LinearLayout>
 

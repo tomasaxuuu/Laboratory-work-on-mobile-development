@@ -4,5 +4,5 @@
     <string name="funcY">Первое значение для x</string>
     <string name="funcX">Второе значение для x</string>
     <string name="btnText">Отправить</string>
-    <string name="diap">Введите диапазон значений X</string>
+    <string name="empty">Вы не ввели значение в поле</string>
 </resources>
