@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         EditText xOne = findViewById(R.id.funcXone);
         EditText xTwo = findViewById(R.id.funcXtwo);
         Button submit = findViewById(R.id.submitBtn);
+        Button clear = findViewById(R.id.clearBtn);
         GraphView graph = findViewById(R.id.graph);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
+            }
+        });
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graph.clearGraph();
             }
         });
     }

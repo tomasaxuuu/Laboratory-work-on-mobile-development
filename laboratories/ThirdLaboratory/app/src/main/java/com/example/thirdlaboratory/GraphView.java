@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 public class GraphView extends View {
     private float x1 = 1;
     private float x2 = 5;
-    float y1 = (2 * x1) + 1;
-    float y2 = (2 * x2) + 1;
+    private float y1 = (2 * x1) + 1;
+    private float y2 = (2 * x2) + 1;
     Paint black = new Paint();
     Paint red = new Paint();
 
@@ -59,20 +59,46 @@ public class GraphView extends View {
         // график, не доделанный
         if(x1 >= 0 && x2 >= 0) {
             canvas.drawLine(startX + x1 * 10, startY - y1 * 20, startX + x2 * 10, startY - y2 * 20, red);
+
+            canvas.drawLine(startX + x1 * 10, startY + 5, startX + x1 * 10, startY - 5, black);
+            canvas.drawLine(startX + x2 * 10, startY + 5, startX + x2 * 10, startY - 5, black);
+            canvas.drawLine(startX - 5, startY - y1 * 20, startX + 5, startY - y1 * 20, black);
+            canvas.drawLine(startX - 5, startY - y2 * 20, startX + 5, startY - y2 * 20, black);
         }
         else if(x1 >= 0 && x2 < 0) {
             canvas.drawLine(startX + x1 * 10, startY - y1 * 20, startX - x2 * -10, startY - y2 * -20, red);
+
+            canvas.drawLine(startX + x1 * 10, startY + 5, startX + x1 * 10, startY - 5, black);
+            canvas.drawLine(startX + x2 * 10, startY + 5, startX + x2 * 10, startY - 5, black);
+            canvas.drawLine(startX - 5, startY - y1 * 20, startX + 5, startY - y1 * 20, black);
+            canvas.drawLine(startX - 5, startY + y2 * 20, startX + 5, startY + y2 * 20, black);
         }
         else if(x1 < 0 && x2 >= 0) {
             canvas.drawLine(startX - x1 * -10, startY - y1 * -20, startX + x2 * 10, startY - y2 * 20, red);
+
+            canvas.drawLine(startX + x1 * 10, startY + 5, startX + x1 * 10, startY - 5, black);
+            canvas.drawLine(startX + x2 * 10, startY + 5, startX + x2 * 10, startY - 5, black);
+            canvas.drawLine(startX - 5, startY + y1 * 20, startX + 5, startY + y1 * 20, black);
+            canvas.drawLine(startX - 5, startY - y2 * 20, startX + 5, startY - y2 * 20, black);
         }
         else if(x1 < 0 && x2 < 0) {
-            canvas.drawLine(startX - x1 * -10, startY - y1 * -20, startX - x2 * -10, startY - y2 * -0, red);
+            canvas.drawLine(startX - x1 * -10, startY - y1 * -20, startX - x2 * -10, startY - y2 * -20, red);
+
+            canvas.drawLine(startX + x1 * 10, startY + 5, startX + x1 * 10, startY - 5, black);
+            canvas.drawLine(startX + x2 * 10, startY + 5, startX + x2 * 10, startY - 5, black);
+            canvas.drawLine(startX - 5, startY + y1 * 20, startX + 5, startY + y1 * 20, black);
+            canvas.drawLine(startX - 5, startY + y2 * 20, startX + 5, startY + y2 * 20, black);
         }
+
     }
     public void getXs(float firstX, float secondX) {
         x1 = firstX;
         x2 = secondX;
+        invalidate();
+    }
+    public void clearGraph() {
+        x1 = 0;
+        x2 = 0;
         invalidate();
     }
 }
