@@ -58,16 +58,16 @@ public class GraphView extends View {
 
         // график, не доделанный
         if(x1 >= 0 && x2 >= 0) {
-            canvas.drawLine(startX + x1 * 30, startY - y1 * 30, startX + x2 * 30, startY - y2 * 30, red);
+            canvas.drawLine(startX + x1 * 10, startY - y1 * 20, startX + x2 * 10, startY - y2 * 20, red);
         }
         else if(x1 >= 0 && x2 < 0) {
-            canvas.drawLine(startX + x1 * 30, startY - y1 * 30, startX - x2 * -30, startY - y2 * -30, red);
+            canvas.drawLine(startX + x1 * 10, startY - y1 * 20, startX - x2 * -10, startY - y2 * -20, red);
         }
         else if(x1 < 0 && x2 >= 0) {
-            canvas.drawLine(startX - x1 * -30, startY - y1 * -30, startX + x2 * 30, startY - y2 * 30, red);
+            canvas.drawLine(startX - x1 * -10, startY - y1 * -20, startX + x2 * 10, startY - y2 * 20, red);
         }
         else if(x1 < 0 && x2 < 0) {
-            canvas.drawLine(startX - x1 * -30, startY - y1 * -30, startX - x2 * -30, startY - y2 * -30, red);
+            canvas.drawLine(startX - x1 * -10, startY - y1 * -20, startX - x2 * -10, startY - y2 * -0, red);
         }
     }
     public void getXs(float firstX, float secondX) {

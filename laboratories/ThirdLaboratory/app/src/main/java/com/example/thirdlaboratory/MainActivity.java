@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     float firstX = Float.parseFloat(xOne.getText().toString());
                     float secondX = Float.parseFloat(xTwo.getText().toString());
+                    if(Math.abs(firstX) >= Math.abs(secondX)) {
+                        throw new Exception();
+                    }
                     graph.getXs(firstX, secondX);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty),
