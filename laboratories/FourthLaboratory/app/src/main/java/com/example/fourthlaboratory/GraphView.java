@@ -11,11 +11,11 @@ import androidx.annotation.Nullable;
 public class GraphView extends View {
     Paint black = new Paint();
     Paint red = new Paint();
-    Paint pink = new Paint();
+    Paint yellow = new Paint();
     Paint greenYellow = new Paint();
     Paint blue = new Paint();
-    private int x = 1;
-    private int y = 1;
+    private int x = 8;
+    private int y = 5;
     private int h = 10;
     private int w = 10;
     private int[][] arr = {
@@ -44,28 +44,32 @@ public class GraphView extends View {
         red.setColor(Color.rgb(255, 0, 0));
         black.setColor(Color.rgb(0, 0, 0));
         greenYellow.setColor(Color.rgb(0, 128, 0));
-        pink.setColor(Color.rgb(255, 0, 255));
+        yellow.setColor(Color.rgb(189, 183, 107));
         blue.setColor(Color.rgb(0, 0, 255));
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 switch (arr[j][i]) {
+                    // field
                     case 0:
-                        canvas.drawCircle(28 + i * 45, 28 + j * 45, 20, pink);
+                        canvas.drawCircle(48 + i * 70, 48 + j * 70, 30, yellow);
                     break;
+                    // wall
                     case 1:
-                        canvas.drawCircle(28 + i * 45, 28 + j * 45, 20, black);
+                        canvas.drawCircle(48 + i * 70, 48 + j * 70, 30, black);
                         break;
+                    // finish
                     case 2:
-                        canvas.drawCircle(28 + i * 45, 28 + j * 45, 20, blue);
+                        canvas.drawCircle(48 + i * 70, 48 + j * 70, 30, blue);
                     break;
+                    // trap
                     case 4:
-                        canvas.drawCircle(28 + i * 45, 28 + j * 45, 20, greenYellow);
+                        canvas.drawCircle(48 + i * 70, 48 + j * 70, 30, greenYellow);
                     break;
                 }
             }
 
         }
-        canvas.drawCircle(28 + x * 45, 28 + y * 45, 20, red);
+        canvas.drawCircle(48 + x * 70, 48 + y * 70, 23, red);
         }
-    }
+}
 
