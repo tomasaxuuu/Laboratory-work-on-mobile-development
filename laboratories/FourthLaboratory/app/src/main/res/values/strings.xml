@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">FourthLaboratory</string>
-    <string name="up">↑</string>
+    <string name="up">Запуск игры!</string>
     <string name="down">↓</string>
     <string name="right">→</string>
     <string name="left">←</string>
     <string name="victoryTitle">Victory</string>
-    <string name="victoryMessage">Congratulations! You have passed the first level!</string>
+    <string name="victoryMessage1">Congratulations! You have passed the first level!</string>
     <string name="victoryMessage2">Congratulations! You have passed the second level!</string>
-    <string name="victoryMessage3">Congratulations! You have passed the third level!</string>
+    <string name="victoryMessage3">Congratulations! You have passed the third level! Game is over!</string>
     <string name="lostTitle">Lost</string>
     <string name="lostMessage">Oh. You stepped on a bomb and lost, I am sorry!</string>
     <string name="teleportTitle">Teleport</string>
     <string name="teleportMessage">You stepped on the teleport, use this!!!</string>
+    <string name='maze'>Лабиринт</string>
 </resources>

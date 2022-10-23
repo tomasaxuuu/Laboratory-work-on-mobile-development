@@ -1,6 +1,7 @@
 package com.example.fourthlaboratory;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class GameView extends View {
 
     Paint wallBlack = new Paint();
@@ -19,37 +24,51 @@ public class GameView extends View {
     Paint trapGreen = new Paint();
     Paint blueFinish = new Paint();
     Paint teleportPurple = new Paint();
-
+    Paint result = new Paint();
     private int x = 1;
     private int y = 1;
     private float arrSize, hMargin, wMargin;
-    private int h = 10;
-    private int w = 10;
+    private final float h = 10;
+    private final float w = 10;
+
     private int[][] arrLvl1 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 4, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-            {1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-            {1, 0, 4, 0, 1, 0, 4, 0, 2, 1},
+            {1, 0, 1, 0, 0, 0, 1, 4, 2, 1},
+            {1, 0, 1, 0, 4, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 4, 0, 1, 0, 4, 4, 0, 1},
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     private int[][] arrLvl2 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 2, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 5, 1},
             {1, 0, 0, 4, 1, 1, 1, 1, 0, 1},
             {1, 0, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 0, 0, 0, 4, 1, 1, 4, 1, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 1, 2, 1, 1, 1, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 4, 1, 1, 1, 0, 0, 0, 1},
             {1, 0, 0, 0, 0, 0, 0, 0, 3, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
-
+    private int[][] arrLvl3 = {
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 6, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+    private int numberLvl = 1;
+    private int countResult = 0;
     private enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -59,31 +78,58 @@ public class GameView extends View {
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
+
         super(context, attrs);
     }
 
     private void newLvl() {
-        arrLvl1 = arrLvl2;
-        x = 1;
-        y = 8;
+        switch (numberLvl) {
+            case 1:
+                x = 1;
+                y = 1;
+                break;
+            case 2:
+                arrLvl1 = arrLvl2;
+                x = 1;
+                y = 8;
+                break;
+            case 3:
+                arrLvl1 = arrLvl3;
+                x = 8;
+                y = 8;
+                break;
+        }
     }
-
     private void lostLvl() {
-        arrLvl2 = arrLvl1;
-        x = 1;
-        y = 1;
+        switch (numberLvl) {
+            case 1:
+            case 2:
+                numberLvl = 1;
+                newLvl();
+                break;
+            case 3:
+                numberLvl = 2;
+                newLvl();
+                break;
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        result.setColor(Color.rgb(250, 235, 215));
         playerRed.setColor(Color.rgb(255, 0, 0));
         wallBlack.setColor(Color.rgb(0, 0, 0));
         trapGreen.setColor(Color.rgb(0, 128, 0));
         yellowField.setColor(Color.rgb(189, 183, 107));
         blueFinish.setColor(Color.rgb(0, 0, 255));
         teleportPurple.setColor(Color.rgb(146,110,174));
+        result.setStyle(Paint.Style.FILL);
+        canvas.drawPaint(result);
+        result.setColor(Color.BLACK);
+        result.setTextSize(50);
+        canvas.drawText("Количество очков: " + countResult, getWidth() / 2 - 250, 100, result);
 
         float width = getWidth();
         float height = getHeight();
@@ -113,6 +159,8 @@ public class GameView extends View {
                         break;
                     // finish
                     case 2:
+                    case 5:
+                    case 6:
                         canvas.drawCircle(i * 70, j * 70, 30, blueFinish);
                         break;
                     // teleport
@@ -128,20 +176,32 @@ public class GameView extends View {
 
         }
         canvas.drawCircle(x * 70, y * 70, 25, playerRed);
+
     }
 
     private void movePlayer(Direction direction) {
 
         // message about result
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
         // victory
         builder.setTitle(R.string.victoryTitle);
-        builder.setMessage(R.string.victoryMessage);
-        AlertDialog victoryDialog = builder.create();
+        builder.setMessage(R.string.victoryMessage1);
+        AlertDialog victoryDialog1 = builder.create();
+
+        builder.setTitle(R.string.victoryTitle);
+        builder.setMessage(R.string.victoryMessage2);
+        AlertDialog victoryDialog2 = builder.create();
+
+        builder.setTitle(R.string.victoryTitle);
+        builder.setMessage(R.string.victoryMessage3);
+        AlertDialog victoryDialog3 = builder.create();
+
         // lost
         builder.setTitle(R.string.lostTitle);
         builder.setMessage(R.string.lostMessage);
         AlertDialog lostDialog = builder.create();
+
         // teleport
         builder.setTitle(R.string.teleportTitle);
         builder.setMessage(R.string.teleportMessage);
@@ -155,16 +215,33 @@ public class GameView extends View {
                 else if (arrLvl1[y - 1][x] == 4) {
                     lostDialog.show();
                     lostLvl();
+                    countResult -= 2;
                 }
                 else if (arrLvl1[y - 1][x] == 2) {
-                    victoryDialog.show();
+                    numberLvl = 2;
+                    victoryDialog1.show();
                     y--;
                     newLvl();
+                    countResult += 2;
+                }
+                else if (arrLvl1[y - 1][x] == 5) {
+                    numberLvl = 3;
+                    victoryDialog2.show();
+                    y--;
+                    newLvl();
+                    countResult += 4;
+                }
+                else if (arrLvl1[y - 1][x] == 6) {
+                    numberLvl = 1;
+                    victoryDialog3.show();
+                    y--;
+                    countResult += 8;
                 }
                 else if (arrLvl1[y - 1][x] == 3) {
                     teleportDialog.show();
                     y = 1;
                     x = 1;
+                    countResult += 1;
                 }
                 break;
 
@@ -175,16 +252,33 @@ public class GameView extends View {
                 else if (arrLvl1[y + 1][x] == 4) {
                     lostDialog.show();
                     lostLvl();
+                    countResult -= 2;
                 }
                 else if (arrLvl1[y + 1][x] == 2) {
-                    victoryDialog.show();
+                    numberLvl = 2;
+                    victoryDialog1.show();
                     y++;
                     newLvl();
+                    countResult += 2;
+                }
+                else if (arrLvl1[y + 1][x] == 5) {
+                    numberLvl = 3;
+                    victoryDialog2.show();
+                    y++;
+                    newLvl();
+                    countResult += 4;
+                }
+                else if (arrLvl1[y + 1][x] == 6) {
+                    numberLvl = 1;
+                    victoryDialog3.show();
+                    y++;
+                    countResult += 8;
                 }
                 else if (arrLvl1[y + 1][x] == 3) {
                     teleportDialog.show();
                     y = 1;
                     x = 1;
+                    countResult += 1;
                 }
                 break;
             case LEFT:
@@ -194,16 +288,33 @@ public class GameView extends View {
                 else if (arrLvl1[y][x - 1] == 4) {
                     lostDialog.show();
                     lostLvl();
+                    countResult -= 2;
                 }
                 else if (arrLvl1[y][x - 1] == 2) {
-                    victoryDialog.show();
+                    numberLvl = 2;
+                    victoryDialog1.show();
                     x--;
                     newLvl();
+                    countResult += 2;
+                }
+                else if (arrLvl1[y][x - 1] == 5) {
+                    numberLvl = 3;
+                    victoryDialog2.show();
+                    x--;
+                    newLvl();
+                    countResult += 4;
+                }
+                else if (arrLvl1[y][x - 1] == 6) {
+                    numberLvl = 1;
+                    victoryDialog3.show();
+                    x--;
+                    countResult += 8;
                 }
                 else if (arrLvl1[y][x - 1] == 3) {
                     teleportDialog.show();
                     y = 1;
                     x = 1;
+                    countResult += 1;
                 }
                 break;
             case RIGHT:
@@ -213,16 +324,34 @@ public class GameView extends View {
                 else if (arrLvl1[y][x + 1] == 4) {
                     lostDialog.show();
                     lostLvl();
+                    countResult -= 2;
                 }
                 else if (arrLvl1[y][x + 1] == 2) {
-                    victoryDialog.show();
+                    numberLvl = 2;
+                    victoryDialog1.show();
                     x++;
                     newLvl();
+                    countResult += 2;
+                }
+                else if (arrLvl1[y][x + 1] == 5) {
+                    numberLvl = 3;
+                    victoryDialog2.show();
+                    x++;
+                    newLvl();
+                    countResult += 4;
+                }
+                else if (arrLvl1[y][x + 1] == 6) {
+                    numberLvl = 1;
+                    victoryDialog3.show();
+                    x++;
+                    countResult += 8;
+
                 }
                 else if (arrLvl1[y][x + 1] == 3) {
                     teleportDialog.show();
                     y = 1;
                     x = 1;
+                    countResult += 1;
                 }
                 break;
         }
