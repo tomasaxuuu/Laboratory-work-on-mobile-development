@@ -25,6 +25,7 @@ public class GameView extends View {
     Paint blueFinish = new Paint();
     Paint teleportPurple = new Paint();
     Paint result = new Paint();
+    Paint white = new Paint();
     private int x = 1;
     private int y = 1;
     private float arrSize, hMargin, wMargin;
@@ -127,6 +128,7 @@ public class GameView extends View {
         yellowField.setColor(Color.rgb(189, 183, 107));
         blueFinish.setColor(Color.rgb(0, 0, 255));
         teleportPurple.setColor(Color.rgb(146,110,174));
+        white.setColor(Color.WHITE);
         result.setStyle(Paint.Style.FILL);
         canvas.drawPaint(result);
         result.setColor(Color.BLACK);
@@ -180,8 +182,12 @@ public class GameView extends View {
             }
 
         }
-        canvas.drawCircle(x * 50, y * 50, 20, playerRed);
-
+        canvas.drawCircle(x * 50, y * 50, 25, white);
+        canvas.drawCircle(x * 50, y * 50, 20, wallBlack);
+        canvas.drawCircle(x * 50, y * 50, 15, trapGreen);
+        canvas.drawCircle(x * 50, y * 50, 10, blueFinish);
+        canvas.drawCircle(x * 50, y * 50, 5, yellowField);
+        canvas.drawCircle(x * 50, y * 50, 3, teleportPurple);
     }
 
     private void movePlayer(Direction direction) {
@@ -372,7 +378,7 @@ public class GameView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             return true;
         }
-        // определение места движения, то есть куда нам двигаться
+        // определение стороны движения, то есть куда нам двигаться
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
 
             // получение событий по осям
