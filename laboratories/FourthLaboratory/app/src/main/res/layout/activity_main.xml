@@ -17,7 +17,7 @@
         android:textSize="30sp"
         android:layout_gravity="center"/>
 
-    <com.example.fourthlaboratory.GraphView
+    <com.example.fourthlaboratory.GameView
         android:id="@+id/maze"
         android:layout_width="287dp"
         android:layout_height="287dp"

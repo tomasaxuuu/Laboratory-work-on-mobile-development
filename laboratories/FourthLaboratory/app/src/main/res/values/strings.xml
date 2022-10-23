@@ -10,4 +10,6 @@
     <string name="victoryMessage3">Congratulations! You have passed the third level!</string>
     <string name="lostTitle">Lost</string>
     <string name="lostMessage">Oh. You stepped on a bomb and lost, I am sorry!</string>
+    <string name="teleportTitle">Teleport</string>
+    <string name="teleportMessage">You stepped on the teleport, use this!!!</string>
 </resources>
