@@ -13,4 +13,5 @@
     <string name="teleportTitle">Teleport</string>
     <string name="teleportMessage">You stepped on the teleport, use this!!!</string>
     <string name='maze'>Лабиринт</string>
+    <string name='name'>Введите имя: </string>
 </resources>

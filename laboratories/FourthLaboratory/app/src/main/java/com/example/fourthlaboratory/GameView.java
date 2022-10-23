@@ -57,18 +57,19 @@ public class GameView extends View {
     };
     private int[][] arrLvl3 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {1, 6, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 0, 0, 0, 0, 0, 0, 6, 1},
+            {1, 1, 0, 4, 4, 4, 4, 4, 0, 1},
+            {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 0, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+            {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     private int numberLvl = 1;
     private int countResult = 0;
+    private String name = "";
     private enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -95,7 +96,7 @@ public class GameView extends View {
                 break;
             case 3:
                 arrLvl1 = arrLvl3;
-                x = 8;
+                x = 2;
                 y = 8;
                 break;
         }
@@ -129,7 +130,8 @@ public class GameView extends View {
         canvas.drawPaint(result);
         result.setColor(Color.BLACK);
         result.setTextSize(50);
-        canvas.drawText("Количество очков: " + countResult, getWidth() / 2 - 250, 100, result);
+        canvas.drawText("Очки игрока " + name + ": " + countResult,
+                getWidth() / 2 - 278, 50, result);
 
         float width = getWidth();
         float height = getHeight();
@@ -151,31 +153,31 @@ public class GameView extends View {
                 switch (arrLvl1[j][i]) {
                     // field
                     case 0:
-                        canvas.drawCircle(i * 70, j * 70, 30, yellowField);
+                        canvas.drawCircle(i * 50, j * 50, 25, yellowField);
                         break;
                     // wall
                     case 1:
-                        canvas.drawCircle(i * 70, j * 70, 30, wallBlack);
+                        canvas.drawCircle(i * 50, j * 50, 25, wallBlack);
                         break;
                     // finish
                     case 2:
                     case 5:
                     case 6:
-                        canvas.drawCircle(i * 70, j * 70, 30, blueFinish);
+                        canvas.drawCircle(i * 50, j * 50, 25, blueFinish);
                         break;
                     // teleport
                     case 3:
-                        canvas.drawCircle(i * 70, j * 70, 30, teleportPurple);
+                        canvas.drawCircle(i * 50, j * 50, 25, teleportPurple);
                         break;
                     // trap
                     case 4:
-                        canvas.drawCircle(i * 70, j * 70, 30, trapGreen);
+                        canvas.drawCircle(i * 50, j * 50, 25, trapGreen);
                         break;
                     }
             }
 
         }
-        canvas.drawCircle(x * 70, y * 70, 25, playerRed);
+        canvas.drawCircle(x * 50, y * 50, 20, playerRed);
 
     }
 
@@ -396,6 +398,10 @@ public class GameView extends View {
             return true;
         }
         return super.onTouchEvent(event);
+    }
+    public void getName(String nameOF) {
+        this.name = nameOF;
+        invalidate();
     }
 }
 
