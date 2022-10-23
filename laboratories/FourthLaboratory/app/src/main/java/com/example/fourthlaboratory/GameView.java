@@ -70,6 +70,7 @@ public class GameView extends View {
     private int numberLvl = 1;
     private int countResult = 0;
     private String name = "";
+    // тип данных, а именно набор констант
     private enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
@@ -130,6 +131,8 @@ public class GameView extends View {
         canvas.drawPaint(result);
         result.setColor(Color.BLACK);
         result.setTextSize(50);
+
+        // вывод имени и количества очков игрока
         canvas.drawText("Points of " + name + ": " + countResult,
                 getWidth() / 2 - 278, 50, result);
 
@@ -209,6 +212,7 @@ public class GameView extends View {
         builder.setMessage(R.string.teleportMessage);
         AlertDialog teleportDialog = builder.create();
 
+        // действия при прохождении по массиву
         switch (direction) {
             case UP:
                 if (arrLvl1[y - 1][x] == 0) {
@@ -360,26 +364,32 @@ public class GameView extends View {
         invalidate();
     }
 
+    // обработка нажатий по экрану
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
 
+        // определение нажатия
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             return true;
         }
-
+        // определение места движения, то есть куда нам двигаться
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
 
+            // получение событий по осям
             float x1 = event.getX();
             float y1 = event.getY();
+            // определение центра ячейки игрока
             float playerCenterX = hMargin + (arrLvl1[0][x] + 0.5f) * arrSize;
             float playerCenterY = wMargin + (arrLvl1[y][0] + 0.5f) * arrSize;
+
+            // выбор направления движения
             float dx = x1 - playerCenterX;
             float dy = y1 - playerCenterY;
             float absDx = Math.abs(dx);
             float absDy = Math.abs(dy);
 
             if (absDx > arrSize || absDy > arrSize) {
-
+                // выбор направления движения
                 if (absDx > absDy) {
                     // move in x-direction
                     if (dx > 0)
