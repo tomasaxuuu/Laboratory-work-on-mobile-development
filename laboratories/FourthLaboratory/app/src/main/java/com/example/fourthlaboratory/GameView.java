@@ -130,7 +130,7 @@ public class GameView extends View {
         canvas.drawPaint(result);
         result.setColor(Color.BLACK);
         result.setTextSize(50);
-        canvas.drawText("Очки игрока " + name + ": " + countResult,
+        canvas.drawText("Points of " + name + ": " + countResult,
                 getWidth() / 2 - 278, 50, result);
 
         float width = getWidth();

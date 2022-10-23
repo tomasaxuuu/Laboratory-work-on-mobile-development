@@ -12,6 +12,6 @@
     <string name="lostMessage">Oh. You stepped on a bomb and lost, I am sorry!</string>
     <string name="teleportTitle">Teleport</string>
     <string name="teleportMessage">You stepped on the teleport, use this!!!</string>
-    <string name='maze'>Лабиринт</string>
-    <string name='name'>Введите имя: </string>
+    <string name='maze'>Maze</string>
+    <string name='name'>Enter name: </string>
 </resources>
