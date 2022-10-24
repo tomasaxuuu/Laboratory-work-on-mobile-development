@@ -16,16 +16,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button nameOtp = findViewById(R.id.nameBtn);
-        EditText name = findViewById(R.id.name);
-        GameView maze = findViewById(R.id.maze);
-        nameOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                maze.getName(name.getText().toString());
-                name.setText("");
-            }
-        });
+        setContentView(new GameView(this));
     }
 }
