@@ -26,6 +26,18 @@ public class DrawThread extends Thread {
     private float arrSize, hMargin, wMargin;
     private final float h = 10;
     private final float w = 10;
+    private int[][] arrExample = {
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 1, 0, 0, 0, 1, 4, 2, 1},
+            {1, 0, 1, 0, 4, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 1, 0, 1, 0, 1, 4, 0, 1},
+            {1, 0, 4, 0, 1, 0, 4, 4, 0, 1},
+            {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
     private int[][] arrLvl1 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 1, 0, 0, 0, 1, 4, 2, 1},
@@ -38,7 +50,7 @@ public class DrawThread extends Thread {
             {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
-    private int[][] arrLvl2 = {
+    private final int[][] arrLvl2 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 0, 0, 5, 1},
             {1, 0, 0, 4, 1, 1, 1, 1, 0, 1},
@@ -50,7 +62,7 @@ public class DrawThread extends Thread {
             {1, 0, 0, 0, 0, 0, 0, 0, 3, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
-    private int[][] arrLvl3 = {
+    private final int[][] arrLvl3 = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 0, 0, 0, 0, 0, 0, 6, 1},
             {1, 1, 0, 4, 4, 4, 4, 4, 0, 1},
@@ -68,16 +80,26 @@ public class DrawThread extends Thread {
     public float playerCenterY = wMargin + (arrLvl1[y][0] + 0.5f) * arrSize;
 
     private Bitmap startBtn;
+    private Bitmap victoryBtn;
     private int state;
     private float btnLeft = 0;
     private float btnTop = 0;
     private float btnWidth = 0;
     private float btnHeight = 0;
+    private float btnLeft1 = 0;
+    private float btnTop1 = 0;
+    private float btnWidth1 = 0;
+    private float btnHeight1 = 0;
 
     public void doClick(float x, float y) {
         switch (state) {
             case 0:
                 state = 1;
+                break;
+            case 2:
+                state = 0;
+                numberLvl = 1;
+                newLvl();
                 break;
         }
     }
@@ -85,6 +107,7 @@ public class DrawThread extends Thread {
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources) {
         this.surfaceHolder = surfaceHolder;
         startBtn = BitmapFactory.decodeResource(resources, R.drawable.start);
+        victoryBtn = BitmapFactory.decodeResource(resources, R.drawable.victory);
         state = 0;
     }
 
@@ -95,6 +118,7 @@ public class DrawThread extends Thread {
     private void newLvl() {
         switch (numberLvl) {
             case 1:
+                arrLvl1 = arrExample;
                 x = 1;
                 y = 1;
                 break;
@@ -112,7 +136,6 @@ public class DrawThread extends Thread {
     }
 
     public void movePlayer(Direction direction) {
-        state = 1;
         // действия при прохождении по массиву
         switch (direction) {
             case UP:
@@ -147,7 +170,6 @@ public class DrawThread extends Thread {
                     newLvl();
                 }
                 else if (arrLvl1[y - 1][x] == 6) {
-                    numberLvl = 1;
                     y--;
                     state = 2;
                 }
@@ -189,7 +211,6 @@ public class DrawThread extends Thread {
                     newLvl();
                 }
                 else if (arrLvl1[y + 1][x] == 6) {
-                    numberLvl = 1;
                     y++;
                     state = 2;
                 }
@@ -230,9 +251,8 @@ public class DrawThread extends Thread {
                     newLvl();
                 }
                 else if (arrLvl1[y][x - 1] == 6) {
-                    numberLvl = 1;
                     x--;
-                    state = 2;
+                    numberLvl = 4;
                 }
                 else if (arrLvl1[y][x - 1] == 3) {
                     y = 1;
@@ -271,9 +291,8 @@ public class DrawThread extends Thread {
                     newLvl();
                 }
                 else if (arrLvl1[y][x + 1] == 6) {
-                    numberLvl = 1;
                     x++;
-                    state = 2;
+                   state = 2;
                 }
                 else if (arrLvl1[y][x + 1] == 3) {
                     y = 1;
@@ -348,35 +367,35 @@ public class DrawThread extends Thread {
                         switch (arrLvl1[j][i]) {
                             // field
                             case 0:
-                                canvas.drawCircle(i * 70, j * 70, 30, yellowField);
+                                canvas.drawCircle(i * 70, j * 70, 35, yellowField);
                                 break;
                             // wall
                             case 1:
-                                canvas.drawCircle(i * 70, j * 70, 30, wallBlack);
+                                canvas.drawCircle(i * 70, j * 70,35, wallBlack);
                                 break;
                             // finish
                             case 2:
                             case 5:
                             case 6:
-                                canvas.drawCircle(i * 70, j * 70, 30, blueFinish);
+                                canvas.drawCircle(i * 70, j * 70, 35, blueFinish);
                                 break;
                             // teleport
                             case 3:
-                                canvas.drawCircle(i * 70, j * 70, 30, teleportPurple);
+                                canvas.drawCircle(i * 70, j * 70, 35, teleportPurple);
                                 break;
                             // trap
                             case 4:
-                                canvas.drawCircle(i * 70, j * 70, 30, trapGreen);
+                                canvas.drawCircle(i * 70, j * 70, 35, trapGreen);
                                 break;
                         }
                     }
                 }
-                canvas.drawCircle(x * 70, y * 70, 30, white);
-                canvas.drawCircle(x * 70, y * 70, 25, wallBlack);
-                canvas.drawCircle(x * 70, y * 70, 20, trapGreen);
-                canvas.drawCircle(x * 70, y * 70, 15, blueFinish);
-                canvas.drawCircle(x * 70, y * 70, 10, yellowField);
-                canvas.drawCircle(x * 70, y * 70, 5, teleportPurple);
+                canvas.drawCircle(x * 70, y * 70, 35, white);
+                canvas.drawCircle(x * 70, y * 70, 30, wallBlack);
+                canvas.drawCircle(x * 70, y * 70, 25, trapGreen);
+                canvas.drawCircle(x * 70, y * 70, 20, blueFinish);
+                canvas.drawCircle(x * 70, y * 70, 15, yellowField);
+                canvas.drawCircle(x * 70, y * 70, 10, teleportPurple);
             }
 
         } finally {
@@ -386,6 +405,29 @@ public class DrawThread extends Thread {
         }
     }
 
+    private void doVictoryAction() {
+        Canvas canvas = null;
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            synchronized (surfaceHolder) {
+                canvas.drawColor(Color.BLACK);
+                Paint p = new Paint();
+                if (btnLeft1 == 0) {
+                    btnWidth1 = victoryBtn.getWidth();
+                    btnHeight1 = victoryBtn.getHeight();
+                    btnLeft1 = canvas.getWidth() / 2f - btnWidth1 / 2f;
+                    btnTop1 = canvas.getHeight() / 2f - btnHeight1 / 2f;
+                }
+
+                canvas.drawBitmap(victoryBtn, btnLeft1, btnTop1, p);
+            }
+
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
 
     public float getCx() {
         return playerCenterX;
@@ -406,6 +448,9 @@ public class DrawThread extends Thread {
                     break;
                 case 1:
                     doGameAction();
+                    break;
+                case 2:
+                    doVictoryAction();
                     break;
             }
         }
