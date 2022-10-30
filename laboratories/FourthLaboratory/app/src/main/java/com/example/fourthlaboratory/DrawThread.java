@@ -449,41 +449,41 @@ public class DrawThread extends Thread {
                 playerCenterY = wMargin + (arrLvl1[y][0] + 0.5f) * arrSize;
 
                 // рисование лабиринта
-                for (int j = 0; j < h; j++) {
-                    for (int i = 0; i < w; i++) {
-                        switch (arrLvl1[j][i]) {
-                            // field
-                            case 0:
-                                canvas.drawCircle(i * 70, j * 70, 35, yellowField);
-                                break;
-                            // wall
-                            case 1:
-                                canvas.drawCircle(i * 70, j * 70,35, white);
-                                break;
-                            // finish
-                            case 2:
-                            case 5:
-                            case 6:
-                                canvas.drawCircle(i * 70, j * 70, 35, blueFinish);
-                                break;
-                            // teleport
-                            case 3:
-                                canvas.drawCircle(i * 70, j * 70, 35, teleportPurple);
-                                break;
-                            // trap
-                            case 4:
-                                canvas.drawCircle(i * 70, j * 70, 35, trapGreen);
-                                break;
+                    for (int j = 0; j < h; j++) {
+                        for (int i = 0; i < w; i++) {
+                            switch (arrLvl1[j][i]) {
+                                // field
+                                case 0:
+                                    canvas.drawCircle(i * 70, j * 70, 35, yellowField);
+                                    break;
+                                // wall
+                                case 1:
+                                    canvas.drawCircle(i * 70, j * 70,35, white);
+                                    break;
+                                // finish
+                                case 2:
+                                case 5:
+                                case 6:
+                                    canvas.drawCircle(i * 70, j * 70, 35, blueFinish);
+                                    break;
+                                // teleport
+                                case 3:
+                                    canvas.drawCircle(i * 70, j * 70, 35, teleportPurple);
+                                    break;
+                                // trap
+                                case 4:
+                                    canvas.drawCircle(i * 70, j * 70, 35, trapGreen);
+                                    break;
+                            }
                         }
                     }
+                    canvas.drawCircle(x * 70, y * 70, 35, wallBlack);
+                    canvas.drawCircle(x * 70, y * 70, 30, white);
+                    canvas.drawCircle(x * 70, y * 70, 25, trapGreen);
+                    canvas.drawCircle(x * 70, y * 70, 20, blueFinish);
+                    canvas.drawCircle(x * 70, y * 70, 15, yellowField);
+                    canvas.drawCircle(x * 70, y * 70, 10, teleportPurple);
                 }
-                canvas.drawCircle(x * 70, y * 70, 35, wallBlack);
-                canvas.drawCircle(x * 70, y * 70, 30, white);
-                canvas.drawCircle(x * 70, y * 70, 25, trapGreen);
-                canvas.drawCircle(x * 70, y * 70, 20, blueFinish);
-                canvas.drawCircle(x * 70, y * 70, 15, yellowField);
-                canvas.drawCircle(x * 70, y * 70, 10, teleportPurple);
-            }
 
         } finally {
             if (canvas != null) {
