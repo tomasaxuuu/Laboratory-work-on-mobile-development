@@ -10,7 +10,7 @@ import android.view.SurfaceHolder;
 public class DrawThread extends Thread {
 
     private boolean runFlag = false;
-    private SurfaceHolder surfaceHolder;
+    private final SurfaceHolder surfaceHolder;
 
     Paint wallBlack = new Paint();
     Paint playerRed = new Paint();
@@ -24,9 +24,9 @@ public class DrawThread extends Thread {
     private int x = 1;
     private int y = 1;
     private float arrSize, hMargin, wMargin;
-    private final float h = 10;
-    private final float w = 10;
-    private int[][] arrExample = {
+    private float h = 10;
+    private float w = 10;
+    private final int[][] arrExample = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 1, 0, 0, 0, 1, 4, 2, 1},
             {1, 0, 1, 0, 4, 0, 1, 4, 0, 1},
@@ -79,13 +79,18 @@ public class DrawThread extends Thread {
     public float playerCenterX = hMargin + (arrLvl1[0][x] + 0.5f) * arrSize;
     public float playerCenterY = wMargin + (arrLvl1[y][0] + 0.5f) * arrSize;
 
-    private Bitmap startBtn;
-    private Bitmap victoryBtn;
+    private final Bitmap startBtn;
+    private final Bitmap victoryBtn;
+    private final Bitmap lvl1Btn;
+    private final Bitmap lvl2Btn;
+    private final Bitmap lvl3Btn;
     private int state;
+
     private float btnLeft = 0;
     private float btnTop = 0;
     private float btnWidth = 0;
     private float btnHeight = 0;
+
     private float btnLeft1 = 0;
     private float btnTop1 = 0;
     private float btnWidth1 = 0;
@@ -96,7 +101,20 @@ public class DrawThread extends Thread {
             case 0:
                 state = 1;
                 break;
-            case 2:
+            case 1:
+                state = 2;
+                break;
+            case 3:
+                state = 2;
+                numberLvl = 2;
+                newLvl();
+                break;
+            case 4:
+                state = 2;
+                numberLvl = 3;
+                newLvl();
+                break;
+            case 5:
                 state = 0;
                 numberLvl = 1;
                 newLvl();
@@ -107,6 +125,9 @@ public class DrawThread extends Thread {
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources) {
         this.surfaceHolder = surfaceHolder;
         startBtn = BitmapFactory.decodeResource(resources, R.drawable.start);
+        lvl1Btn = BitmapFactory.decodeResource(resources, R.drawable.lvl1);
+        lvl2Btn = BitmapFactory.decodeResource(resources, R.drawable.lvl2);
+        lvl3Btn = BitmapFactory.decodeResource(resources, R.drawable.lvl3);
         victoryBtn = BitmapFactory.decodeResource(resources, R.drawable.victory);
         state = 0;
     }
@@ -162,16 +183,18 @@ public class DrawThread extends Thread {
                 else if (arrLvl1[y - 1][x] == 2) {
                     numberLvl = 2;
                     y--;
+                    state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y - 1][x] == 5) {
                     numberLvl = 3;
                     y--;
+                    state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y - 1][x] == 6) {
                     y--;
-                    state = 2;
+                    state = 5;
                 }
                 else if (arrLvl1[y - 1][x] == 3) {
                     y = 1;
@@ -203,16 +226,18 @@ public class DrawThread extends Thread {
                 else if (arrLvl1[y + 1][x] == 2) {
                     numberLvl = 2;
                     y++;
+                    state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y + 1][x] == 5) {
                     numberLvl = 3;
                     y++;
+                    state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y + 1][x] == 6) {
                     y++;
-                    state = 2;
+                    state = 5;
                 }
                 else if (arrLvl1[y + 1][x] == 3) {
                     y = 1;
@@ -243,16 +268,18 @@ public class DrawThread extends Thread {
                 else if (arrLvl1[y][x - 1] == 2) {
                     numberLvl = 2;
                     x--;
+                    state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y][x - 1] == 5) {
                     numberLvl = 3;
                     x--;
+                    state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y][x - 1] == 6) {
                     x--;
-                    numberLvl = 4;
+                    state = 5;
                 }
                 else if (arrLvl1[y][x - 1] == 3) {
                     y = 1;
@@ -283,16 +310,18 @@ public class DrawThread extends Thread {
                 else if (arrLvl1[y][x + 1] == 2) {
                     numberLvl = 2;
                     x++;
+                    state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y][x + 1] == 5) {
                     numberLvl = 3;
                     x++;
+                    state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y][x + 1] == 6) {
                     x++;
-                   state = 2;
+                    state = 5;
                 }
                 else if (arrLvl1[y][x + 1] == 3) {
                     y = 1;
@@ -309,15 +338,75 @@ public class DrawThread extends Thread {
             synchronized (surfaceHolder) {
                 canvas.drawColor(Color.BLACK);
                 Paint p = new Paint();
-
                 if (btnLeft == 0) {
                     btnWidth = startBtn.getWidth();
                     btnHeight = startBtn.getHeight();
                     btnLeft = canvas.getWidth() / 2f - btnWidth / 2f;
                     btnTop = canvas.getHeight() / 2f - btnHeight / 2f;
                 }
-
                 canvas.drawBitmap(startBtn, btnLeft, btnTop, p);
+            }
+
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+    private void doLvl1Action() {
+        Canvas canvas = null;
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            synchronized (surfaceHolder) {
+                canvas.drawColor(Color.BLACK);
+                Paint p = new Paint();
+                if (btnLeft == 0) {
+                    btnWidth = startBtn.getWidth();
+                    btnHeight = startBtn.getHeight();
+                }
+                canvas.drawBitmap(lvl1Btn, btnWidth - btnWidth / 2 - 10, btnHeight + btnHeight / 3, p);
+            }
+
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+    private void doLvl2Action() {
+        Canvas canvas = null;
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            synchronized (surfaceHolder) {
+                canvas.drawColor(Color.BLACK);
+                Paint p = new Paint();
+                if (btnLeft == 0) {
+                    btnWidth = startBtn.getWidth();
+                    btnHeight = startBtn.getHeight();
+                }
+                canvas.drawBitmap(lvl2Btn, btnWidth - btnWidth / 2 - 10, btnHeight + btnHeight / 3, p);
+            }
+
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+    private void doLvl3Action() {
+        Canvas canvas = null;
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            synchronized (surfaceHolder) {
+                canvas.drawColor(Color.BLACK);
+                Paint p = new Paint();
+                if (btnLeft == 0) {
+                    btnWidth = startBtn.getWidth();
+                    btnHeight = startBtn.getHeight();
+                    btnLeft = canvas.getWidth() / 2f - btnWidth / 2f;
+                    btnTop = canvas.getHeight() / 2f - btnHeight / 2f;
+                }
+                canvas.drawBitmap(lvl3Btn, btnWidth - btnWidth / 2 - 10, btnHeight + btnHeight / 3, p);
             }
 
         } finally {
@@ -332,7 +421,7 @@ public class DrawThread extends Thread {
         try {
             canvas = surfaceHolder.lockCanvas();
             synchronized (surfaceHolder) {
-                result.setColor(Color.rgb(250, 235, 215));
+                result.setColor(Color.rgb(0, 0, 0));
                 playerRed.setColor(Color.rgb(255, 0, 0));
                 wallBlack.setColor(Color.rgb(0, 0, 0));
                 trapGreen.setColor(Color.rgb(0, 128, 0));
@@ -344,8 +433,6 @@ public class DrawThread extends Thread {
                 canvas.drawPaint(result);
                 result.setColor(Color.BLACK);
                 result.setTextSize(50);
-
-
                 float width = canvas.getWidth();
                 float height = canvas.getHeight();
 
@@ -371,7 +458,7 @@ public class DrawThread extends Thread {
                                 break;
                             // wall
                             case 1:
-                                canvas.drawCircle(i * 70, j * 70,35, wallBlack);
+                                canvas.drawCircle(i * 70, j * 70,35, white);
                                 break;
                             // finish
                             case 2:
@@ -390,8 +477,8 @@ public class DrawThread extends Thread {
                         }
                     }
                 }
-                canvas.drawCircle(x * 70, y * 70, 35, white);
-                canvas.drawCircle(x * 70, y * 70, 30, wallBlack);
+                canvas.drawCircle(x * 70, y * 70, 35, wallBlack);
+                canvas.drawCircle(x * 70, y * 70, 30, white);
                 canvas.drawCircle(x * 70, y * 70, 25, trapGreen);
                 canvas.drawCircle(x * 70, y * 70, 20, blueFinish);
                 canvas.drawCircle(x * 70, y * 70, 15, yellowField);
@@ -447,14 +534,22 @@ public class DrawThread extends Thread {
                     doMenuAction();
                     break;
                 case 1:
-                    doGameAction();
+                    doLvl1Action();
                     break;
                 case 2:
+                    doGameAction();
+                    break;
+                case 3:
+                    doLvl2Action();
+                    break;
+                case 4:
+                    doLvl3Action();
+                    break;
+                case 5:
                     doVictoryAction();
                     break;
             }
         }
     }
-
 }
 
