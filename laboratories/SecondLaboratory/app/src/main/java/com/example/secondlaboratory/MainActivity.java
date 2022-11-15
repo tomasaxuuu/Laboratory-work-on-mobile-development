@@ -85,7 +85,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for(int i = 0; i < list.getCount(); i++) {
-                    list.setItemChecked(i, true);
+                    if(i == list.getCount() - 2)
+                        list.setItemChecked(i, true);
+                    if(list.getCount() == 1 || list.getCount() == 2) {
+                        list.setItemChecked(0, true);
+                    }
                 }
             }
         });

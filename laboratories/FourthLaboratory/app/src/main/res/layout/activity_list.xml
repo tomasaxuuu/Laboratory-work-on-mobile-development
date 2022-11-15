@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/pointsV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sortPointsV"/>
+
+        <Button
+            android:id="@+id/pointsU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sortPointsU"/>
+
+        <Button
+            android:id="@+id/timeV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sortTimeV"/>
+
+        <Button
+            android:id="@+id/timeU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sortTimeU"/>
+
+        <Button
+            android:id="@+id/clearBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/clearAdapter"/>
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/back"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/itemsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

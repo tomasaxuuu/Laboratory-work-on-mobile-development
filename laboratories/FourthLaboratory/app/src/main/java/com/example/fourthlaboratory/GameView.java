@@ -1,6 +1,6 @@
 package com.example.fourthlaboratory;
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -36,6 +36,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         // определение нажатия
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             drawThread.doClick(event.getX(), event.getY());
+            if(drawThread.state == 7) {
+                drawThread.runFlag = false;
+                drawThread.state = 0;
+                Intent i = new Intent(getContext(), MainActivity.class);
+                i.putExtra("date", drawThread.dataStamp);
+                i.putExtra("time", drawThread.time);
+                i.putExtra("points", drawThread.resultStr);
+                i.putExtra("steps", drawThread.steps);
+                getContext().startActivity(i);
+            }
             return true;
         }
         // определение стороны движения, то есть куда нам двигаться

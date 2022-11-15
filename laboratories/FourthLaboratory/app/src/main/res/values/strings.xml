@@ -14,4 +14,13 @@
     <string name="teleportMessage">You stepped on the teleport, use this!!!</string>
     <string name='maze'>Maze</string>
     <string name='name'>Enter name: </string>
+    <string name='db'>DB</string>
+    <string name="simpleMaze">Simple maze</string>
+    <string name="sortTimeV">Сортировка по времени (возрастание)</string>
+    <string name="sortPointsV">Сортировка по очкам (возрастание)</string>
+    <string name="sortTimeU">Сортировка по времени (убывание)</string>
+    <string name="sortPointsU">Сортировка по очкам (убывание)</string>
+    <string name="back">Вернуться</string>
+    <string name="clearAdapter">Очистить список</string>
+
 </resources>

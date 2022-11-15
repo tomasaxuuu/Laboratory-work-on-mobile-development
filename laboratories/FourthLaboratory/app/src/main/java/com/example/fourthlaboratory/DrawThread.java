@@ -7,9 +7,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+
 public class DrawThread extends Thread {
 
-    private boolean runFlag = false;
+    public boolean runFlag = false;
     private final SurfaceHolder surfaceHolder;
 
     Paint wallBlack = new Paint();
@@ -23,6 +29,9 @@ public class DrawThread extends Thread {
 
     private int x = 1;
     private int y = 1;
+    private int stepsCount = 0;
+    private int resultCount = 0;
+    private long startTime, endTime;
     private float arrSize, hMargin, wMargin;
     private float h = 10;
     private float w = 10;
@@ -84,7 +93,7 @@ public class DrawThread extends Thread {
     private final Bitmap lvl1Btn;
     private final Bitmap lvl2Btn;
     private final Bitmap lvl3Btn;
-    private int state;
+    public int state;
 
     private float btnLeft = 0;
     private float btnTop = 0;
@@ -95,6 +104,11 @@ public class DrawThread extends Thread {
     private float btnTop1 = 0;
     private float btnWidth1 = 0;
     private float btnHeight1 = 0;
+
+    public String dataStamp;
+    public String resultStr;
+    public String steps;
+    public String time;
 
     public void doClick(float x, float y) {
         switch (state) {
@@ -115,9 +129,10 @@ public class DrawThread extends Thread {
                 newLvl();
                 break;
             case 5:
-                state = 0;
-                numberLvl = 1;
-                newLvl();
+                state = 6;
+                break;
+            case 6:
+                state ++;
                 break;
         }
     }
@@ -162,8 +177,11 @@ public class DrawThread extends Thread {
             case UP:
                 if (arrLvl1[y - 1][x] == 0) {
                     y--;
+                    stepsCount++;
                 }
                 else if (arrLvl1[y - 1][x] == 4) {
+                    resultCount --;
+                    stepsCount++;
                     switch (numberLvl) {
                         case 1:
                             y = 1;
@@ -181,22 +199,30 @@ public class DrawThread extends Thread {
                     }
                 }
                 else if (arrLvl1[y - 1][x] == 2) {
+                    resultCount ++;
+                    stepsCount++;
                     numberLvl = 2;
                     y--;
                     state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y - 1][x] == 5) {
+                    resultCount ++;
+                    stepsCount++;
                     numberLvl = 3;
                     y--;
                     state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y - 1][x] == 6) {
+                    resultCount ++;
+                    stepsCount++;
                     y--;
                     state = 5;
                 }
                 else if (arrLvl1[y - 1][x] == 3) {
+                    resultCount += 2;
+                    stepsCount++;
                     y = 1;
                     x = 1;
                 }
@@ -204,9 +230,12 @@ public class DrawThread extends Thread {
 
             case DOWN:
                 if (arrLvl1[y + 1][x] == 0) {
+                    stepsCount++;
                     y++;
                 }
                 else if (arrLvl1[y + 1][x] == 4) {
+                    resultCount --;
+                    stepsCount++;
                     switch (numberLvl) {
                         case 1:
                             y = 1;
@@ -224,31 +253,42 @@ public class DrawThread extends Thread {
                     }
                 }
                 else if (arrLvl1[y + 1][x] == 2) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 2;
                     y++;
                     state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y + 1][x] == 5) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 3;
                     y++;
                     state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y + 1][x] == 6) {
+                    stepsCount++;
+                    resultCount ++;
                     y++;
                     state = 5;
                 }
                 else if (arrLvl1[y + 1][x] == 3) {
+                    resultCount += 2;
+                    stepsCount++;
                     y = 1;
                     x = 1;
                 }
                 break;
             case LEFT:
                 if (arrLvl1[y][x - 1] == 0) {
+                    stepsCount++;
                     x--;
                 }
                 else if (arrLvl1[y][x - 1] == 4) {
+                    resultCount --;
+                    stepsCount++;
                     switch (numberLvl) {
                         case 1:
                             y = 1;
@@ -266,31 +306,42 @@ public class DrawThread extends Thread {
                     }
                 }
                 else if (arrLvl1[y][x - 1] == 2) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 2;
                     x--;
                     state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y][x - 1] == 5) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 3;
                     x--;
                     state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y][x - 1] == 6) {
+                    stepsCount++;
+                    resultCount ++;
                     x--;
                     state = 5;
                 }
                 else if (arrLvl1[y][x - 1] == 3) {
+                    resultCount += 2;
+                    stepsCount++;
                     y = 1;
                     x = 1;
                 }
                 break;
             case RIGHT:
                 if (arrLvl1[y][x + 1] == 0) {
+                    stepsCount++;
                     x++;
                 }
                 else if (arrLvl1[y][x + 1] == 4) {
+                    resultCount --;
+                    stepsCount++;
                     switch (numberLvl) {
                         case 1:
                             y = 1;
@@ -308,22 +359,30 @@ public class DrawThread extends Thread {
                     }
                 }
                 else if (arrLvl1[y][x + 1] == 2) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 2;
                     x++;
                     state = 3;
                     newLvl();
                 }
                 else if (arrLvl1[y][x + 1] == 5) {
+                    stepsCount++;
+                    resultCount ++;
                     numberLvl = 3;
                     x++;
                     state = 4;
                     newLvl();
                 }
                 else if (arrLvl1[y][x + 1] == 6) {
+                    stepsCount++;
+                    resultCount ++;
                     x++;
                     state = 5;
                 }
                 else if (arrLvl1[y][x + 1] == 3) {
+                    resultCount += 2;
+                    stepsCount++;
                     y = 1;
                     x = 1;
                 }
@@ -516,6 +575,40 @@ public class DrawThread extends Thread {
         }
     }
 
+    private void doResults () {
+        resultStr = "" + resultCount;
+        steps = "" + stepsCount;
+        time = "" + (endTime - startTime) / 1000000000;
+        dataStamp = "" + new SimpleDateFormat("dd.MM.yyyy").
+                format(Calendar.getInstance().getTime());
+        Canvas canvas = null;
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            synchronized (surfaceHolder) {
+                canvas.drawColor(Color.BLACK);
+                Paint p = new Paint();
+                p.setTextSize(80);
+                p.setColor(Color.YELLOW);
+                canvas.drawText("Ваша статистика:", canvas.getWidth() / 2f - 340,
+                        canvas.getHeight() / 5f * 1.25f, p);
+                p.setTextSize(40);
+                p.setColor(Color.WHITE);
+                canvas.drawText("Кол-во очков: " + resultStr, canvas.getWidth() / 2f - 340,
+                        canvas.getHeight() / 5f * 1.5f, p);
+                canvas.drawText("Кол-во шагов: " + steps,
+                        canvas.getWidth() / 2f - 340, canvas.getHeight() / 5f * 1.75f, p);
+                canvas.drawText("Дата прохождения игры: " + dataStamp,
+                        canvas.getWidth() / 2f - 340, canvas.getHeight() / 5f * 2f, p);
+                canvas.drawText("Время прохождения: " + time + " sec",
+                        canvas.getWidth() / 2f - 340, canvas.getHeight() / 5f * 2.25f, p);
+
+            }
+        } finally {
+            if (canvas != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
     public float getCx() {
         return playerCenterX;
     }
@@ -531,6 +624,7 @@ public class DrawThread extends Thread {
         while (runFlag) {
             switch (state) {
                 case 0:
+                    startTime = System.nanoTime();
                     doMenuAction();
                     break;
                 case 1:
@@ -546,7 +640,11 @@ public class DrawThread extends Thread {
                     doLvl3Action();
                     break;
                 case 5:
+                    endTime = System.nanoTime();
                     doVictoryAction();
+                    break;
+                case 6:
+                    doResults();
                     break;
             }
         }
