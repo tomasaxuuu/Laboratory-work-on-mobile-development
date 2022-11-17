@@ -29,9 +29,10 @@ public class DrawThread extends Thread {
 
     private int x = 1;
     private int y = 1;
-    private int stepsCount = 0;
-    private int resultCount = 0;
+    public int stepsCount = 0;
+    public int resultCount = 0;
     private long startTime, endTime;
+    public int timeInt;
     private float arrSize, hMargin, wMargin;
     private float h = 10;
     private float w = 10;
@@ -579,6 +580,7 @@ public class DrawThread extends Thread {
         resultStr = "" + resultCount;
         steps = "" + stepsCount;
         time = "" + (endTime - startTime) / 1000000000;
+        timeInt = Integer.parseInt(time);
         dataStamp = "" + new SimpleDateFormat("dd.MM.yyyy").
                 format(Calendar.getInstance().getTime());
         Canvas canvas = null;

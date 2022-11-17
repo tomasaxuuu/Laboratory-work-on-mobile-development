@@ -12,41 +12,73 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/pointsV"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sortPointsV"/>
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/pointsU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sortPointsU"/>
+            <Button
+                android:id="@+id/pointsBest"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/pointsBest"/>
 
-        <Button
-            android:id="@+id/timeV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sortTimeV"/>
+            <Button
+                android:id="@+id/pointsUb"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="@string/pointsUb"/>
 
-        <Button
-            android:id="@+id/timeU"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sortTimeU"/>
 
-        <Button
-            android:id="@+id/clearBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/clearAdapter"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/timeBest"
+                android:layout_width="200dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/timeBest" />
+            <Button
+                android:id="@+id/timeUb"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/timeUb"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/seeList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seeList" />
+
+            <Button
+                android:id="@+id/clearBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clearAdapter" />
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/back"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

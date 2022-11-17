@@ -4,12 +4,12 @@ public class Names {
 
     public long id;
     public String date;
-    public String time;
-    public String points;
-    public String steps;
+    public int time;
+    public int points;
+    public int steps;
 
 
-    public Names(long id, String date, String time, String points, String steps) {
+    public Names(long id, String date, int time, int points, int steps) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -17,19 +17,20 @@ public class Names {
         this.steps = steps;
     }
 
+    // getters
     public String getId() {
         return Long.toString(id);
     }
     public String getDate() {
         return date;
     }
-    public String getTime() {
+    public int getTime() {
         return time;
     }
-    public String getPoints() {
+    public int getPoints() {
         return points;
     }
-    public String getSteps() {
+    public int getSteps() {
         return steps;
     }
 }

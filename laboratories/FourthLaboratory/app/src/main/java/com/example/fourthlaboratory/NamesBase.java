@@ -15,17 +15,19 @@ public class NamesBase {
     public static final String TABLE_NAME = "Names";
     private final SQLiteDatabase mDataBase;
 
+    // названия колонок
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_TIME = "time";
     public static final String COLUMN_STEPS = "steps";
     public static final String COLUMN_POINTS = "points";
 
-    public static final int NUM_COLUMN_ID = 0;
-    public static final int NUM_COLUMN_DATE = 1;
-    public static final int NUM_COLUMN_TIME = 2;
-    public static final int NUM_COLUMN_POINTS = 3;
-    public static final int NUM_COLUMN_STEPS = 4;
+    // номера колонок
+    public static  int NUM_COLUMN_ID = 0;
+    public static  int NUM_COLUMN_DATE = 1;
+    public static int NUM_COLUMN_TIME = 2;
+    public static int NUM_COLUMN_POINTS = 3;
+    public static  int NUM_COLUMN_STEPS = 4;
 
     public NamesBase(Context context) {
         DBHelper helper = new DBHelper(context);
@@ -33,6 +35,7 @@ public class NamesBase {
         helper.onCreate(mDataBase);
     }
 
+    // извлечение данных из таблицы
     public ArrayList<Names> selectAll() {
 
         Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
@@ -43,9 +46,83 @@ public class NamesBase {
             do {
                 long id = mCursor.getLong(NUM_COLUMN_ID);
                 String date = mCursor.getString(NUM_COLUMN_DATE);
-                String time = mCursor.getString(NUM_COLUMN_TIME);
-                String points = mCursor.getString(NUM_COLUMN_POINTS);
-                String steps = mCursor.getString(NUM_COLUMN_STEPS);
+                int time = mCursor.getInt(NUM_COLUMN_TIME);
+                int points = mCursor.getInt(NUM_COLUMN_POINTS);
+                int steps = mCursor.getInt(NUM_COLUMN_STEPS);
+                Names stats = new Names(id, date, time, points, steps);
+
+                list.add(stats);
+            } while (mCursor.moveToNext());
+        }
+
+        mCursor.close();
+
+        return list;
+    }
+
+    // сортировка по очкам
+    String orderBy = "points";
+    public Names bestPointsSelect() {
+
+        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, orderBy + " DESC");
+        ArrayList<Names> list = new ArrayList<Names>();
+        mCursor.moveToFirst();
+
+        if (!mCursor.isAfterLast()) {
+            do {
+                long id = mCursor.getLong(NUM_COLUMN_ID);
+                String date = mCursor.getString(NUM_COLUMN_DATE);
+                int time = mCursor.getInt(NUM_COLUMN_TIME);
+                int points = mCursor.getInt(NUM_COLUMN_POINTS);
+                int steps = mCursor.getInt(NUM_COLUMN_STEPS);
+                Names stats = new Names(id, date, time, points, steps);
+                list.add(stats);
+            } while (mCursor.moveToNext());
+        }
+
+        mCursor.close();
+
+        return list.get(0);
+    }
+
+    // сортировка по времени
+    String orderTime = "time";
+    public Names bestTimeSelect() {
+
+        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, orderTime + " DESC");
+        ArrayList<Names> list = new ArrayList<Names>();
+        mCursor.moveToFirst();
+
+        if (!mCursor.isAfterLast()) {
+            do {
+                long id = mCursor.getLong(NUM_COLUMN_ID);
+                String date = mCursor.getString(NUM_COLUMN_DATE);
+                int time = mCursor.getInt(NUM_COLUMN_TIME);
+                int points = mCursor.getInt(NUM_COLUMN_POINTS);
+                int steps = mCursor.getInt(NUM_COLUMN_STEPS);
+                Names stats = new Names(id, date, time, points, steps);
+                list.add(stats);
+            } while (mCursor.moveToNext());
+        }
+
+        mCursor.close();
+
+        return list.get(0);
+    }
+    String orderResults = "points";
+    public ArrayList<Names> bestResultSelect() {
+
+        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, orderResults + " DESC");
+        ArrayList<Names> list = new ArrayList<Names>();
+        mCursor.moveToFirst();
+
+        if (!mCursor.isAfterLast()) {
+            do {
+                long id = mCursor.getLong(NUM_COLUMN_ID);
+                String date = mCursor.getString(NUM_COLUMN_DATE);
+                int time = mCursor.getInt(NUM_COLUMN_TIME);
+                int points = mCursor.getInt(NUM_COLUMN_POINTS);
+                int steps = mCursor.getInt(NUM_COLUMN_STEPS);
                 Names stats = new Names(id, date, time, points, steps);
                 list.add(stats);
             } while (mCursor.moveToNext());
@@ -56,8 +133,35 @@ public class NamesBase {
         return list;
     }
 
+    String orderWorstTime= "time";
+    public ArrayList<Names> worstTimeSelect() {
+
+        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, orderWorstTime + " DESC");
+        ArrayList<Names> list = new ArrayList<Names>();
+        mCursor.moveToFirst();
+
+        if (!mCursor.isAfterLast()) {
+            do {
+                long id = mCursor.getLong(NUM_COLUMN_ID);
+                String date = mCursor.getString(NUM_COLUMN_DATE);
+                int time = mCursor.getInt(NUM_COLUMN_TIME);
+                int points = mCursor.getInt(NUM_COLUMN_POINTS);
+                int steps = mCursor.getInt(NUM_COLUMN_STEPS);
+                Names stats = new Names(id, date, time, points, steps);
+
+                list.add(stats);
+            } while (mCursor.moveToNext());
+        }
+
+        mCursor.close();
+
+        return list;
+    }
+
+    // вставка записи в БД
     public long add(String date, String time, String points, String steps) {
 
+        // НОМЕР КОЛОНКИ - ДАННЫЕ
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DATE, date);
         cv.put(COLUMN_TIME, time);
@@ -66,7 +170,7 @@ public class NamesBase {
 
         return mDataBase.insert(TABLE_NAME, null, cv);
     }
-    public void clear() { // Полная очистка нашей таблицы
+    public void clear() { // очистка БД
 
         mDataBase.execSQL("DROP TABLE " + TABLE_NAME);
     }

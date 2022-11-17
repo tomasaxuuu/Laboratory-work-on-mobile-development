@@ -37,13 +37,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             drawThread.doClick(event.getX(), event.getY());
             if(drawThread.state == 7) {
-                drawThread.runFlag = false;
-                drawThread.state = 0;
                 Intent i = new Intent(getContext(), MainActivity.class);
                 i.putExtra("date", drawThread.dataStamp);
-                i.putExtra("time", drawThread.time);
-                i.putExtra("points", drawThread.resultStr);
-                i.putExtra("steps", drawThread.steps);
+                i.putExtra("time", drawThread.timeInt);
+                i.putExtra("points", drawThread.resultCount);
+                i.putExtra("steps", drawThread.stepsCount);
                 getContext().startActivity(i);
             }
             return true;

@@ -14,22 +14,66 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     String date;
-    String time;
+    int time;
     String points;
-    String steps;
+    int steps;
 
     private NamesBase DBConnector;
     private ArrayList<String> stats = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
 
+    // вывод списка
     public void UpdateList () {
-
         adapter.clear();
 
         for(Names n: DBConnector.selectAll()) {
             adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
                     + n.getPoints() + ", Шаги: " + n.getSteps());
         }
+
+    }
+
+    // вывод лучшего результата
+    public void UpdateListPoints () {
+        adapter.clear();
+
+        Names n = DBConnector.bestPointsSelect();
+            adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
+                    + n.getPoints() + ", Шаги: " + n.getSteps());
+
+
+    }
+
+    // вывод худшего времени
+    public void UpdateListTime () {
+        adapter.clear();
+
+        Names n = DBConnector.bestTimeSelect();
+        adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
+                + n.getPoints() + ", Шаги: " + n.getSteps());
+    }
+
+    // вывод списка по убыванию очков
+    public void UpdateListPointsUb () {
+        adapter.clear();
+
+        for(Names n: DBConnector.bestResultSelect()) {
+            adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
+                    + n.getPoints() + ", Шаги: " + n.getSteps());
+        }
+
+
+    }
+
+    // вывод списка по убыванию времени
+    public void UpdateListTimeUb () {
+        adapter.clear();
+
+        for(Names n: DBConnector.worstTimeSelect()) {
+            adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
+                    + n.getPoints() + ", Шаги: " + n.getSteps());
+        }
+
 
     }
 
@@ -40,20 +84,19 @@ public class MainActivity extends AppCompatActivity {
 
         DBConnector = new NamesBase(this);
 
+        // получение статистики из gameView
         date = getIntent().getStringExtra("date");
-        time = getIntent().getStringExtra("time");
-        points = getIntent().getStringExtra("points");
-        steps = getIntent().getStringExtra("steps");
+        time = getIntent().getIntExtra("time", 0);
+        points = String.valueOf(getIntent().getIntExtra("points", 0));
+        steps = getIntent().getIntExtra("steps", 0);
 
-        if(date != null && time != null && points != null && steps != null) {
+        // добавление статистики в список и бд, если данные не null
+        if(date != null && time != 0 && points != null && steps != 0) {
 
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stats);
-            DBConnector.add(date, time, points, steps);
+            DBConnector.add(date, String.valueOf(time), points, String.valueOf(steps));
             UpdateList();
-            date = null;
-            time = null;
-            points = null;
-            steps = null;
+
         }
 
         Button maze = findViewById(R.id.game);
@@ -73,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Button back = findViewById(R.id.backBtn);
                 Button clear = findViewById(R.id.clearBtn);
+                Button bestPoints = findViewById(R.id.pointsBest);
+                Button bestTime = findViewById(R.id.timeBest);
+                Button pointsUb = findViewById(R.id.pointsUb);
+                Button timeUb = findViewById(R.id.timeUb);
+                Button seeList = findViewById(R.id.seeList);
                 ListView list = findViewById(R.id.itemsList);
 
                 adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, stats);
@@ -95,6 +143,41 @@ public class MainActivity extends AppCompatActivity {
                             DBConnector.clear();
                         }
 
+                    }
+                });
+
+                bestPoints.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UpdateListPoints();
+                    }
+                });
+
+                bestTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UpdateListTime();
+                    }
+                });
+
+                pointsUb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UpdateListPointsUb();
+                    }
+                });
+
+                timeUb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UpdateListTimeUb();
+                    }
+                });
+
+                seeList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UpdateList();
                     }
                 });
 
