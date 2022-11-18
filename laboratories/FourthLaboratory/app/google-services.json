@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "92897172973",
+    "project_id": "fourthlaboratory",
+    "storage_bucket": "fourthlaboratory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92897172973:android:050f450eaaa28668dcdbe4",
+        "android_client_info": {
+          "package_name": "com.example.fourthlaboratory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92897172973-ec4r74bv9lj2sopojfc1oed84b63e0ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgydc9ztdpNLiLgG7WaD9ltykLmiLB-lU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92897172973-ec4r74bv9lj2sopojfc1oed84b63e0ov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

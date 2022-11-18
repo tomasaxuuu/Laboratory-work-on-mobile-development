@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         for(Names n: DBConnector.selectAll()) {
             adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
                     + n.getPoints() + ", Шаги: " + n.getSteps());
+
         }
 
     }
@@ -81,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myStats = database.getReference("stats");
         DBConnector = new NamesBase(this);
 
         // получение статистики из gameView
@@ -89,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
         time = getIntent().getIntExtra("time", 0);
         points = String.valueOf(getIntent().getIntExtra("points", 0));
         steps = getIntent().getIntExtra("steps", 0);
-
         // добавление статистики в список и бд, если данные не null
         if(date != null && time != 0 && points != null && steps != 0) {
 
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stats);
             DBConnector.add(date, String.valueOf(time), points, String.valueOf(steps));
+            myStats.push().setValue("Дата: " + date + ", Время: " + String.valueOf(time) + ", Очки: " + points + ", Шаги: " + String.valueOf(steps));
             UpdateList();
 
         }
@@ -149,35 +154,45 @@ public class MainActivity extends AppCompatActivity {
                 bestPoints.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UpdateListPoints();
+                        if (list.getCount() > 0) {
+                            UpdateListPoints();
+                        }
                     }
                 });
 
                 bestTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UpdateListTime();
+                        if (list.getCount() > 0) {
+                            UpdateListTime();
+                        }
                     }
                 });
 
                 pointsUb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UpdateListPointsUb();
+                        if (list.getCount() > 0) {
+                            UpdateListPointsUb();
+                        }
                     }
                 });
 
                 timeUb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UpdateListTimeUb();
+                        if (list.getCount() > 0) {
+                            UpdateListTimeUb();
+                        }
                     }
                 });
 
                 seeList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UpdateList();
+                        if (list.getCount() > 0) {
+                            UpdateList();
+                        }
                     }
                 });
 
