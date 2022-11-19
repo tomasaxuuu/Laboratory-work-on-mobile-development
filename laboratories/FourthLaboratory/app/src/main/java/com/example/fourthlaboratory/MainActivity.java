@@ -1,18 +1,30 @@
 package com.example.fourthlaboratory;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private NamesBase DBConnector;
     private ArrayList<String> stats = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter1;
+
 
     // вывод списка
     public void UpdateList () {
@@ -42,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
 
         Names n = DBConnector.bestPointsSelect();
-            adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
-                    + n.getPoints() + ", Шаги: " + n.getSteps());
+        adapter.add(n.getId() + ": Дата: " + n.getDate() + ", Время: " + n.getTime() + ", Очки: "
+                + n.getPoints() + ", Шаги: " + n.getSteps());
 
 
     }
@@ -87,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myStats = database.getReference("stats");
+        ArrayList<String> messages = new ArrayList<>();
         DBConnector = new NamesBase(this);
 
         // получение статистики из gameView
@@ -106,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button maze = findViewById(R.id.game);
         Button db = findViewById(R.id.db);
-
+        Button fireBase = findViewById(R.id.fireBaseBtn);
         maze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 Button pointsUb = findViewById(R.id.pointsUb);
                 Button timeUb = findViewById(R.id.timeUb);
                 Button seeList = findViewById(R.id.seeList);
+
                 ListView list = findViewById(R.id.itemsList);
 
                 adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, stats);
@@ -196,8 +212,83 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+
                 list.setAdapter(adapter);
             }
+        });
+        fireBase.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_list_tasks);
+                Button backFB = findViewById(R.id.backFB);
+                ListView listFB = findViewById(R.id.itemsFireBase);
+                Button deleteFB = findViewById(R.id.deleteFB);
+                backFB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i1 = new Intent(view.getContext(), MainActivity.class);
+                        startActivity(i1);
+                    }
+                });
+
+                deleteFB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(listFB.getCount() > 0) {
+                            myStats.getRef().removeValue();
+                            Intent i = new Intent(view.getContext(), MainActivity.class);
+                            startActivity(i);
+                        }
+                    }
+                });
+
+                myStats.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        String msg = snapshot.getValue(String.class);
+                        messages.add(msg);
+
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+                });
+                myStats.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        adapter1 = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, messages);
+                        adapter1.notifyDataSetChanged();
+                        listFB.setAdapter(adapter1);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
         });
     }
 }

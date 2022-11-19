@@ -9,6 +9,7 @@
     <string name="timeUb">Убывание по времени</string>
     <string name="timeBest">Самый длительный сеанс</string>
     <string name="back">Вернуться</string>
+    <string name="fireBase">FireBase</string>
     <string name="clearAdapter">Очистить список</string>
 
 </resources>

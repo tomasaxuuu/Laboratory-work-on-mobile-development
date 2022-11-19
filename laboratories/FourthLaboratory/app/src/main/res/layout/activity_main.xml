@@ -31,6 +31,12 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/db" />
+
+        <Button
+            android:id="@+id/fireBaseBtn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/fireBase"/>
     </LinearLayout>
 
 
