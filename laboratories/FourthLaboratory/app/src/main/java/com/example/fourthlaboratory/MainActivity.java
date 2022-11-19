@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stats);
             DBConnector.add(date, String.valueOf(time), points, String.valueOf(steps));
-            myStats.push().setValue("Дата: " + date + ", Время: " + String.valueOf(time) + ", Очки: " + points + ", Шаги: " + String.valueOf(steps));
+            myStats.push().setValue("Дата: " + date + ", Время: " + time + ", Очки: " + points + ", Шаги: " + steps);
             UpdateList();
 
         }
